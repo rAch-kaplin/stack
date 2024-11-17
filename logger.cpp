@@ -1,8 +1,8 @@
 #include "logger.h"
+#include "color.h"
 
 
-
-static Logger logger = {NULL, NULL};
+//static Logger logger = {NULL, NULL};
 
 int loggerInit(const char *log_file_name, const char *error_log_file_name)
 {
@@ -26,16 +26,18 @@ int loggerInit(const char *log_file_name, const char *error_log_file_name)
 
 void loggerDeinit()
 {
-    fclose(logger.logFile);
-    logger.logFile = NULL;
+    Logger* log = GetLogger();
+    fclose(log->logFile);
+    log->logFile = NULL;
 
-    fclose(logger.errorLogFile);
-    logger.errorLogFile = NULL;
+    fclose(log->errorLogFile);
+    log->errorLogFile = NULL;
 }
 
 
 Logger* GetLogger()
 {
+    static Logger logger = {NULL, NULL};
     return &logger;
 }
 
