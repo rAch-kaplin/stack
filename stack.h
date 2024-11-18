@@ -24,7 +24,6 @@ struct stack
     stackElement *data;
     size_t size;
     size_t capacity;
-    //FILE *fp;
 };
 
 
@@ -32,9 +31,6 @@ errorCode stackCtor(stack *stk, size_t capacity);
 errorCode stackPush(stack *stk, stackElement elem);
 errorCode stackDtor(stack *stk);
 errorCode stackPop(stack *stk, stackElement *elem_from_stack);
-errorCode verify(const stack *stk);
-//errorCode createFile(stack *stk);
-errorCode dump(stack *stk);
-void stackAssert(stack *stk);
+
 
 #endif

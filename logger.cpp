@@ -2,7 +2,6 @@
 #include "color.h"
 
 
-//static Logger logger = {NULL, NULL};
 
 int loggerInit(const char *log_file_name, const char *error_log_file_name)
 {
