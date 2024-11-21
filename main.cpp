@@ -13,13 +13,12 @@ int main()
 
     struct stack stk = {NULL, 0, 0};
 
-
     stackElement elem_from_stack = 0; //TODO: StackElem
 
     stackCtor(&stk, 5);
     logStack(&stk, LOG_INFO);
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 11; i++)
     {
         stackPush(&stk, (i + 1) * 10);
         logStack(&stk, LOG_INFO);
@@ -31,7 +30,7 @@ int main()
         printf(COLOR_GREEN "elem_from_stack = " STACK_ELEM_FORMAT " \n\n" COLOR_RESET, elem_from_stack);
         logStack(&stk, LOG_INFO);
     }
-
+    
     stackDtor(&stk);
     logStack(&stk, LOG_INFO);
     DBG_PRINTF("Finished: stk->data = %p\n", stk.data);

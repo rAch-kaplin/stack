@@ -44,6 +44,13 @@ void logStack(const stack *stk, LogLevel level)
 {
     Logger* log = GetLogger();
     FILE *logFile = NULL;
+
+    if (!log)
+    {
+        fprintf(stderr, "Logger is NULL\n");
+        return;
+    }
+
     switch(level)
     {
         case LOG_INFO:
@@ -56,13 +63,32 @@ void logStack(const stack *stk, LogLevel level)
             return;
     }
 
+    if (!logFile)
+    {
+        fprintf(stderr, "logFile is NULL\n");
+        return;
+    }
+
+    dump(stk, logFile);
+}
+
+errorCode dump(const stack *stk, FILE *logFile)
+{
+    if (stk == NULL)
+    {
+        fprintf(stderr, "stk is NULL\n");
+        return STK_STRUCT_NULL_POINTER;
+    }
+
     fprintf(logFile, "=========================================================================================\n");
-    fprintf(logFile, "STACK DUMP:\n");
+    fprintf(logFile, "STACK DUMP [INFO]:\n");
     fprintf(logFile, "Capacity: %zu\n", stk->capacity);
-    fprintf(logFile, "Size: %zu\n", stk->size);
+    fprintf(logFile, "Size: %zd\n", stk->size);
     fprintf(logFile, "Data: ");
     for (size_t i = 0; i < stk->capacity; i++) {
-        fprintf(logFile, "%d ", stk->data[i]);
+        fprintf(logFile, STACK_ELEM_FORMAT, stk->data[i]);
     }
     fprintf(logFile, "\n");
+
+    return STK_OK;
 }

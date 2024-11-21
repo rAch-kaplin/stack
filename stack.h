@@ -22,7 +22,7 @@ enum errorCode
 struct stack
 {
     stackElement *data;
-    size_t size;
+    ssize_t size;
     size_t capacity;
 };
 

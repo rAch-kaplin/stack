@@ -1,6 +1,7 @@
 #ifndef _HDEBUG
 #define _HDEBUG
 #include <stdio.h>
+#include <assert.h>
 #include "stack.h"
 #include "logger.h"
 
