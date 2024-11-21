@@ -16,7 +16,8 @@ enum errorCode
     BAD_CAPACITY = 6,
     BAD_SIZE = 7,
     STK_STRUCT_NULL_POINTER = 8,
-    FILE_POINTER_IS_NULL = 9
+    FILE_POINTER_IS_NULL = 9,
+    CANT_REALLOC_TO_FREE = 10
 };
 
 struct stack
@@ -31,6 +32,9 @@ errorCode stackCtor(stack *stk, size_t capacity);
 errorCode stackPush(stack *stk, stackElement elem);
 errorCode stackDtor(stack *stk);
 errorCode stackPop(stack *stk, stackElement *elem_from_stack);
+errorCode stackReallocUp(stack *stk);
+errorCode stackReallocDown(stack *stk);
+errorCode stackReallocToFree(stack *stk);
 
 
 #endif

@@ -28,5 +28,6 @@
 
 errorCode verify(const stack *stk);
 void stackAssert(stack *stk);
+void printError(errorCode error);
 
 #endif

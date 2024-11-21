@@ -5,7 +5,7 @@
 #include "logger.h"
 #include "color.h"
 #include "debug.h"
-// TODO: reallocDown()
+
 
 int main()
 {
@@ -30,7 +30,9 @@ int main()
         printf(COLOR_GREEN "elem_from_stack = " STACK_ELEM_FORMAT " \n\n" COLOR_RESET, elem_from_stack);
         logStack(&stk, LOG_INFO);
     }
-    
+    stackReallocToFree(&stk);
+    DBG(logStack(&stk, LOG_INFO));
+
     stackDtor(&stk);
     logStack(&stk, LOG_INFO);
     DBG_PRINTF("Finished: stk->data = %p\n", stk.data);
