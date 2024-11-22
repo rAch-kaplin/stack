@@ -87,8 +87,8 @@ errorCode dump(const stack *stk, FILE *logFile)
     fprintf(logFile, "Size: %zd\n", stk->size);
     fprintf(logFile, "Data pointer: %p\n", stk->data);
     fprintf(logFile, "Data: ");
-    for (size_t i = 0; i < stk->capacity; i++) {
-        fprintf(logFile, STACK_ELEM_FORMAT " ", stk->data[i]);
+    for (size_t i = 0; i < stk->capacity + 2; i++) {
+        fprintf(logFile, " " STACK_ELEM_FORMAT , stk->data[i]);
     }
     fprintf(logFile, "\n");
 

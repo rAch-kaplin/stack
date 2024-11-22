@@ -34,8 +34,8 @@ int main()
     DBG(logStack(&stk, LOG_INFO));
 
     stackDtor(&stk);
-    logStack(&stk, LOG_INFO);
-    DBG_PRINTF("Finished: stk->data = %p\n", stk.data);
+    //logStack(&stk, LOG_INFO);
+
 
     loggerDeinit();
     return 0;

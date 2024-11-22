@@ -1,10 +1,12 @@
 #ifndef _HDEBUG
 #define _HDEBUG
 #include <stdio.h>
+#include <stdint.h>
 #include <assert.h>
 #include "stack.h"
 #include "logger.h"
 
+const stackElement CANARY = (stackElement)0xDEADBABE;
 
 #define DEBUG
 
@@ -26,6 +28,7 @@
     #define DBG(...)
 #endif
 
+int canary(stack *stk);
 errorCode verify(const stack *stk);
 void stackAssert(stack *stk);
 void printError(errorCode error);

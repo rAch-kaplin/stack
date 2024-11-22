@@ -1,6 +1,15 @@
 #include "debug.h"
 
 
+int canary(stack *stk)
+{
+    stk->data[0] = CANARY;
+    stk->data[stk->capacity + 1] = CANARY;
+
+    return 0;
+}
+
+
 errorCode verify(const stack *stk)
 {
     if (stk == NULL)
@@ -8,6 +17,14 @@ errorCode verify(const stack *stk)
 
     if (stk->data == NULL)
         return STK_OUT_MEMORY;
+    else
+    {
+        if (stk->data[0] != CANARY)
+            return BAD_CANARY_1;
+
+        if (stk->data[stk->capacity + 1] != CANARY)
+            return BAD_CANARY_2;
+    }
 
     if ((size_t)stk->size > stk->capacity)
         return STK_SIZE_LARGER_CAPACITY;

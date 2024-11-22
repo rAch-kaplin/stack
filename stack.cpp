@@ -12,19 +12,22 @@ static const size_t capacity_multiplier = 2;
 
 errorCode stackCtor(stack *stk, size_t capacity)
 {
-    stk->data = (stackElement*)calloc(capacity, sizeof(stackElement));
+    stk->data = (stackElement*)calloc(capacity + 2, sizeof(stackElement));
     if (stk->data == NULL)
     {
         fprintf(stderr, "memory allocation error\n");
         return STK_OUT_MEMORY;
     }
-    DBG_PRINTF("Start: stk->data = %p\n", stk->data);
+    DBG_PRINTF(COLOR_MAGENTA"Start: stk->data = %p\n" COLOR_RESET, stk->data);
 
     stk->size = 0;
-    DBG_PRINTF("Start: stk->size = %zd\n", stk->size);
+    DBG_PRINTF(COLOR_MAGENTA "Start: stk->size = %zd\n" COLOR_RESET, stk->size);
 
     stk->capacity = capacity;
-    DBG_PRINTF("Start: stk->capacity = %zu\n\n", stk->capacity);
+
+    canary(stk);
+
+    DBG_PRINTF(COLOR_MAGENTA"Start: stk->capacity = %zu\n\n" COLOR_RESET, stk->capacity);
     stackAssert(stk);
 
     return STK_OK;
@@ -32,7 +35,7 @@ errorCode stackCtor(stack *stk, size_t capacity)
 
 errorCode stackReallocUp(stack *stk)
 {
-        stackElement *stk_tmptr = (stackElement*)realloc(stk->data, stk->capacity * capacity_multiplier * sizeof(stackElement));
+        stackElement *stk_tmptr = (stackElement*)realloc(stk->data, (stk->capacity * capacity_multiplier + 2) * sizeof(stackElement));
         if (stk_tmptr == NULL)
         {
             fprintf(stderr, "Realloc allocate failed\n");
@@ -40,6 +43,7 @@ errorCode stackReallocUp(stack *stk)
         }
         stk->data = stk_tmptr;
         stk->capacity *= capacity_multiplier;
+        canary(stk);
         return STK_OK;
 }
 
@@ -52,10 +56,9 @@ errorCode stackPush(stack *stk, stackElement elem)
     if ((size_t)stk->size >= stk->capacity)
         stackReallocUp(stk);
 
-    stk->data[stk->size] = elem;
+    stk->data[stk->size + 1] = elem;
     DBG_PRINTF(COLOR_YELLOW "Stack after push stk->data[%zd] = " STACK_ELEM_FORMAT "\n" COLOR_RESET, stk->size, elem);
     stk->size++;
-
 
     stackAssert(stk);
     return STK_OK;
@@ -63,7 +66,7 @@ errorCode stackPush(stack *stk, stackElement elem)
 
 errorCode stackReallocDown(stack *stk)
 {
-        stackElement *stk_tmptr = (stackElement*)realloc(stk->data, (stk->capacity / capacity_multiplier) * sizeof(stackElement));
+        stackElement *stk_tmptr = (stackElement*)realloc(stk->data, (stk->capacity / capacity_multiplier + 2) * sizeof(stackElement));
         if (stk_tmptr == NULL)
         {
             fprintf(stderr, "Realloc allocate failed\n");
@@ -71,6 +74,7 @@ errorCode stackReallocDown(stack *stk)
         }
         stk->data = stk_tmptr;
         stk->capacity /= capacity_multiplier;
+        canary(stk);
         return STK_OK;
 }
 
@@ -81,8 +85,8 @@ errorCode stackPop(stack *stk, stackElement *elem_from_stack)
         return STK_EMPTY_STACK;
 
     stk->size--;
-    *elem_from_stack = stk->data[stk->size];
-    stk->data[stk->size] = POISON;
+    *elem_from_stack = stk->data[stk->size + 1];
+    stk->data[stk->size + 1] = POISON;
 
     if ((stk->size >= 5) && ((size_t)stk->size <= stk->capacity / 4))
         stackReallocDown(stk);
@@ -96,7 +100,7 @@ errorCode stackReallocToFree(stack *stk)
 {
     if (stk->size == 0)
     {
-        stackElement *stk_tmptr = (stackElement*)realloc(stk->data, 1 * sizeof(stackElement));
+        stackElement *stk_tmptr = (stackElement*)realloc(stk->data, 3 * sizeof(stackElement));
         if (stk_tmptr == NULL)
         {
             fprintf(stderr, "Realloc allocate failed\n");
@@ -104,6 +108,7 @@ errorCode stackReallocToFree(stack *stk)
         }
         stk->data = stk_tmptr;
         stk->capacity = 1;
+        canary(stk);
         return STK_OK;
     }
     return CANT_REALLOC_TO_FREE;
@@ -115,6 +120,12 @@ errorCode stackDtor(stack *stk)
     stk->data = NULL;
     stk->capacity = 0;
     stk->size = 0;
+
+    DBG_PRINTF(COLOR_MAGENTA"Finished: stk->data = %p\n" COLOR_RESET, stk->data);
+    DBG_PRINTF(COLOR_MAGENTA"Capacity: %zu\n" COLOR_RESET, stk->capacity);
+    DBG_PRINTF(COLOR_MAGENTA"Size: %zd\n" COLOR_RESET, stk->size);
+    DBG_PRINTF(COLOR_MAGENTA"Data pointer: %p\n" COLOR_RESET, stk->data);
+
     return STK_OK;
 }
 

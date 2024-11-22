@@ -17,7 +17,9 @@ enum errorCode
     BAD_SIZE = 7,
     STK_STRUCT_NULL_POINTER = 8,
     FILE_POINTER_IS_NULL = 9,
-    CANT_REALLOC_TO_FREE = 10
+    CANT_REALLOC_TO_FREE = 10,
+    BAD_CANARY_1 = 11,
+    BAD_CANARY_2 = 12
 };
 
 struct stack
