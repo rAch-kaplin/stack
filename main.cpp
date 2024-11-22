@@ -15,7 +15,7 @@ int main()
 
     stackElem elem_from_stack = 0; //TODO: StackElem
 
-    stackCtor(&stk, -5);
+    stackCtor(&stk, 5);
     logStack(&stk, LOG_INFO);
 
     for (int i = 0; i < 11; i++)

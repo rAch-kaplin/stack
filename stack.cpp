@@ -12,6 +12,8 @@ static const size_t capacity_multiplier = 2;
 
 errorCode stackCtor(stack *stk, ssize_t capacity)
 {
+    stk->capacity = capacity;
+
     if (stk->capacity <= 0)
     {
         DBG_FPRINTF(stderr, COLOR_RED "ERROR: BAD CAPACITY = %zd\n" COLOR_RESET, stk->capacity);
@@ -29,7 +31,7 @@ errorCode stackCtor(stack *stk, ssize_t capacity)
     stk->size = 0;
     DBG_PRINTF(COLOR_MAGENTA "Start: stk->size = %zd\n" COLOR_RESET, stk->size);
 
-    stk->capacity = capacity;
+
 
     canary(stk);
 
