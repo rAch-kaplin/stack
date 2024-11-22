@@ -13,9 +13,9 @@ int main()
 
     struct stack stk = {NULL, 0, 0};
 
-    stackElement elem_from_stack = 0; //TODO: StackElem
+    stackElem elem_from_stack = 0; //TODO: StackElem
 
-    stackCtor(&stk, 5);
+    stackCtor(&stk, -5);
     logStack(&stk, LOG_INFO);
 
     for (int i = 0; i < 11; i++)

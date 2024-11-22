@@ -1,8 +1,8 @@
 #ifndef _HSTACK
 #define _HSTACK
 
-typedef int stackElement;
-const stackElement POISON = 0xBAD1ABA;
+typedef int stackElem;
+const stackElem POISON = 0xBAD1ABA;
 #define STACK_ELEM_FORMAT "%d"
 
 enum errorCode
@@ -24,16 +24,16 @@ enum errorCode
 
 struct stack
 {
-    stackElement *data;
+    stackElem *data;
     ssize_t size;
-    size_t capacity;
+    ssize_t capacity;
 };
 
 
-errorCode stackCtor(stack *stk, size_t capacity);
-errorCode stackPush(stack *stk, stackElement elem);
+errorCode stackCtor(stack *stk, ssize_t capacity);
+errorCode stackPush(stack *stk, stackElem elem);
 errorCode stackDtor(stack *stk);
-errorCode stackPop(stack *stk, stackElement *elem_from_stack);
+errorCode stackPop(stack *stk, stackElem *elem_from_stack);
 errorCode stackReallocUp(stack *stk);
 errorCode stackReallocDown(stack *stk);
 errorCode stackReallocToFree(stack *stk);

@@ -32,13 +32,13 @@ int verify(const stack *stk)
             error = error | BAD_CANARY_2;
     }
 
-    if ((size_t)stk->size > stk->capacity)
+    if (stk->size > stk->capacity)
         error = error | STK_SIZE_LARGER_CAPACITY;
 
     if (stk->size < 0)
         error = error | BAD_SIZE;
 
-    if (stk->capacity == 0)
+    if (stk->capacity <= 0)
         error = error | STK_CAPACITY_NOT_EXSIST;
 
 

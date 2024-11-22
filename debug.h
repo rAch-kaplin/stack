@@ -6,7 +6,7 @@
 #include "stack.h"
 #include "logger.h"
 
-const stackElement CANARY = (stackElement)0xDEADBABE;
+const stackElem CANARY = (stackElem)0xDEADBABE;
 
 #define DEBUG
 
