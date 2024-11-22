@@ -13,7 +13,7 @@ const stackElement CANARY = (stackElement)0xDEADBABE;
 #ifdef DEBUG
     #define DBG_PRINTF(...) printf(__VA_ARGS__)
 
-    #define DBG_FPRINTF(fp, format, ...) fprintf(fp, format, __VA_ARGS__)
+    #define DBG_FPRINTF(fp, ...) fprintf(fp, __VA_ARGS__)
 
     #define DBG_FPRINTF_NO_ARGS(fp, format) fprintf(fp, format)
 
@@ -29,8 +29,8 @@ const stackElement CANARY = (stackElement)0xDEADBABE;
 #endif
 
 int canary(stack *stk);
-errorCode verify(const stack *stk);
+int verify(const stack *stk);
 void stackAssert(stack *stk);
-void printError(errorCode error);
+int decoderError(FILE * fp_error, int error);
 
 #endif

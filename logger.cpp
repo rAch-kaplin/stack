@@ -1,6 +1,6 @@
 #include "logger.h"
 #include "color.h"
-
+#include "debug.h"
 
 
 int loggerInit(const char *log_file_name, const char *error_log_file_name)
@@ -68,8 +68,8 @@ void logStack(const stack *stk, LogLevel level)
         fprintf(stderr, "logFile is NULL\n");
         return;
     }
-
     dump(stk, logFile);
+    //decoderError(logFile, error);
 }
 
 errorCode dump(const stack *stk, FILE *logFile)

@@ -21,4 +21,5 @@ Logger* GetLogger();
 void logStack(const stack *stk, LogLevel level);
 errorCode dump(const stack *stk, FILE *logFile);
 
+
 #endif

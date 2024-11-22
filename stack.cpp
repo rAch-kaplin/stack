@@ -91,7 +91,6 @@ errorCode stackPop(stack *stk, stackElement *elem_from_stack)
     if ((stk->size >= 5) && ((size_t)stk->size <= stk->capacity / 4))
         stackReallocDown(stk);
 
-
     stackAssert(stk);
     return STK_OK;
 }

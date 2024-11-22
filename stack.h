@@ -7,19 +7,19 @@ const stackElement POISON = 0xBAD1ABA;
 
 enum errorCode
 {
-    STK_OK = 0,
-    STK_OUT_MEMORY = 1,
-    STK_REALLOC_FAILED = 2,
-    STK_EMPTY_STACK = 3,
-    STK_SIZE_LARGER_CAPACITY = 4,
-    STK_CAPACITY_NOT_EXSIST = 5,
-    BAD_CAPACITY = 6,
-    BAD_SIZE = 7,
-    STK_STRUCT_NULL_POINTER = 8,
-    FILE_POINTER_IS_NULL = 9,
-    CANT_REALLOC_TO_FREE = 10,
-    BAD_CANARY_1 = 11,
-    BAD_CANARY_2 = 12
+    STK_OK = (0 << 0),
+    STK_OUT_MEMORY = (1 << 0),
+    STK_REALLOC_FAILED = (1 << 1),
+    STK_EMPTY_STACK = (1 << 2),
+    STK_SIZE_LARGER_CAPACITY = (1 << 3),
+    STK_CAPACITY_NOT_EXSIST = (1 << 4),
+    BAD_CAPACITY = (1 << 5),
+    BAD_SIZE = (1 << 6),
+    STK_STRUCT_NULL_POINTER = (1 << 7),
+    FILE_POINTER_IS_NULL = (1 << 8),
+    CANT_REALLOC_TO_FREE = (1 << 9),
+    BAD_CANARY_1 = (1 << 10),
+    BAD_CANARY_2 = (1 << 11)
 };
 
 struct stack
