@@ -10,16 +10,26 @@ int canary(stack *stk)
     return 0;
 }
 
-
-int verify(const stack *stk)
+void stkNullCheck(stack *stk)
 {
-    int error = 0;
-
     if (stk == NULL)
     {
-        error = error | STK_STRUCT_NULL_POINTER;
-        return error;
+        DBG_FPRINTF(stderr, COLOR_RED "ERROR: STK POINTER IS NULL\n" COLOR_RESET);
+        assert(0);
     }
+}
+
+
+int verify(stack *stk)
+{
+    int error = 0;
+    stkNullCheck(stk);
+
+    // if (stk == NULL)
+    // {
+    //     error = error | STK_STRUCT_NULL_POINTER;
+    //     return error;
+    // }
 
     if (stk->data == NULL)
         error = error | STK_OUT_MEMORY;
