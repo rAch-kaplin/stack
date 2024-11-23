@@ -2,6 +2,8 @@
 #include "color.h"
 #include "debug.h"
 
+// vargs
+void log(LogLevel levelMsg, const char* fmt, ...);
 
 int loggerInit(const char *log_file_name, const char *error_log_file_name)
 {
@@ -80,13 +82,13 @@ errorCode dump(const stack *stk, FILE *logFile)
         return STK_STRUCT_NULL_POINTER;
     }
 
-    fprintf(logFile, "=========================================================================================\n");
-    fprintf(logFile, "STACK DUMP [INFO]:\n");
-    fprintf(logFile, "stack pointer = %p\n", stk);
-    fprintf(logFile, "Capacity: %zd\n", stk->capacity);
-    fprintf(logFile, "Size: %zd\n", stk->size);
-    fprintf(logFile, "Data pointer: %p\n", stk->data);
-    fprintf(logFile, "Data: ");
+    fprintf(logFile, "=========================================================================================\n"
+                     "STACK DUMP [INFO]:\n"
+                     "stack pointer = %p\n"
+                     "Capacity: %zd\n"
+                     "Size: %zd\n"
+                     "Data pointer: %p\n"
+                     "Data: ", stk, stk->capacity, stk->size, stk->data);
     for (ssize_t i = 0; i < stk->capacity + 2; i++) {
         fprintf(logFile, " " STACK_ELEM_FORMAT , stk->data[i]);
     }
