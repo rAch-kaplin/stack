@@ -4,22 +4,36 @@
 #include <stdio.h>
 #include "stack.h"
 
-typedef struct {
-    FILE *logFile;
-    FILE *errorLogFile;
-} Logger;
+#define LOG(levelMsg, fmt, ...)                                  \
+    do                                                           \
+    {                                                            \
+        if (shouldLog(levelMsg))                                 \
+        {                                                        \
+            log(levelMsg, __FILE__, __LINE__, fmt, ##__VA_ARGS__); \
+        }                                                        \
+    } while(0)
 
 enum LogLevel
 {
-    LOG_INFO,
-    LOG_ERROR
+    LOGL_DEBUG = 0,
+    LOGL_INFO  = 1,
+    LOGL_ERROR = 2
 };
 
-int loggerInit(const char *log_file_name, const char *error_log_file_name);
+
+typedef struct {
+    LogLevel levelLogger;
+    FILE *logFile;
+} Logger;
+
+
+bool shouldLog(LogLevel levelMsg);
+int loggerInit(LogLevel levelLogger, const char *log_file_name);
 void loggerDeinit();
 Logger* GetLogger();
-void logStack(const stack *stk, LogLevel level);
-errorCode dump(const stack *stk, FILE *logFile);
+//void log(LogLevel levelMsg, const char* fmt, ...);
+void log(LogLevel levelMsg, const char* file, int line, const char* fmt, ...);
+void dump(const stack *stk);
 
 
 #endif

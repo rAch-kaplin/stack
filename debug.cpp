@@ -1,5 +1,6 @@
 #include "debug.h"
 #include "color.h"
+#include "logger.h"
 
 
 int canary(stack *stk)
@@ -10,7 +11,7 @@ int canary(stack *stk)
     return 0;
 }
 
-void stkNullCheck(stack *stk)
+void stkNullCheck(const stack *stk)
 {
     if (stk == NULL)
     {
@@ -24,12 +25,6 @@ int verify(stack *stk)
 {
     int error = 0;
     stkNullCheck(stk);
-
-    // if (stk == NULL)
-    // {
-    //     error = error | STK_STRUCT_NULL_POINTER;
-    //     return error;
-    // }
 
     if (stk->data == NULL)
         error = error | STK_OUT_MEMORY;
@@ -61,35 +56,56 @@ void stackAssert(stack *stk)
     int error = verify(stk);
     if (error)
     {
-        logStack(stk, LOG_ERROR);
+        LOG(LOGL_ERROR, "Stack verification failed: %s\n", decoderError(error));
         loggerDeinit();
-        DBG(decoderError(stderr, error);)
+        //decoderError(stderr, error);
         assert(0);
     }
 }
 
-int decoderError(FILE * fp_error, int error)
+const char* decoderError(int error)
 {
     if (error & STK_STRUCT_NULL_POINTER)
-        DBG_FPRINTF(fp_error, COLOR_RED"STK_STRUCT_NULL_POINTER\n" COLOR_RESET);
+    {
+        //DBG_FPRINTF(fp_error, COLOR_RED"STK_STRUCT_NULL_POINTER\n" COLOR_RESET);
+        return "STK_STRUCT_NULL_POINTER";
+    }
 
     if (error & STK_OUT_MEMORY)
-        DBG_FPRINTF(fp_error, COLOR_RED"STK_OUT_MEMORY\n" COLOR_RESET);
+    {
+        //DBG_FPRINTF(fp_error, COLOR_RED"STK_OUT_MEMORY\n" COLOR_RESET);
+        return "STK_OUT_MEMORY";
+    }
 
     if (error & STK_SIZE_LARGER_CAPACITY)
-        DBG_FPRINTF(fp_error, COLOR_RED"STK_SIZE_LARGER_CAPACITY\n" COLOR_RESET);
+    {
+        //DBG_FPRINTF(fp_error, COLOR_RED"STK_SIZE_LARGER_CAPACITY\n" COLOR_RESET);
+        return "STK_SIZE_LARGER_CAPACITY";
+    }
 
     if (error & BAD_SIZE)
-        DBG_FPRINTF(fp_error,COLOR_RED "BAD_SIZE\n" COLOR_RESET);
+    {
+        //DBG_FPRINTF(fp_error,COLOR_RED "BAD_SIZE\n" COLOR_RESET);
+        return "BAD_SIZE";
+    }
 
     if (error & STK_CAPACITY_NOT_EXSIST)
-        DBG_FPRINTF(fp_error, COLOR_RED"STK_CAPACITY_NOT_EXSIST\n" COLOR_RESET);
+    {
+        //DBG_FPRINTF(fp_error, COLOR_RED"STK_CAPACITY_NOT_EXSIST\n" COLOR_RESET);
+        return "STK_CAPACITY_NOT_EXSIST";
+    }
 
     if (error & BAD_CANARY_1)
-        DBG_FPRINTF(fp_error, COLOR_RED"BAD_CANARY_1\n" COLOR_RESET);
+    {
+        //DBG_FPRINTF(fp_error, COLOR_RED"BAD_CANARY_1\n" COLOR_RESET);
+        return "BAD_CANARY_1";
+    }
 
     if (error & BAD_CANARY_2)
-        DBG_FPRINTF(fp_error,COLOR_RED "BAD_CANARY_2\n" COLOR_RESET);
+    {
+        //DBG_FPRINTF(fp_error,COLOR_RED "BAD_CANARY_2\n" COLOR_RESET);
+        return "BAD_CANARY_2";
+    }
 
-    return error;
+    return "Unknow Error :(";
 }

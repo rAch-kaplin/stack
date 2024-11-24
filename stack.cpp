@@ -87,6 +87,7 @@ errorCode stackReallocDown(stack *stk)
     stk->capacity /= (ssize_t)capacity_multiplier;
 
     canary(stk);
+    //stk->data[0] = 1;
     stackAssert(stk);
     return STK_OK;
 }
@@ -120,7 +121,7 @@ errorCode stackReallocToFree(stack *stk)
         }
         stk->data = stk_tmptr;
         stk->capacity = 1;
-        
+
         canary(stk);
         stackAssert(stk);
         return STK_OK;

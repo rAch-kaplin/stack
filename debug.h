@@ -29,9 +29,9 @@ const stackElem CANARY = (stackElem)0xDEADBABE;
 #endif
 
 int canary(stack *stk);
-void stkNullCheck(stack *stk);
+void stkNullCheck(const stack *stk);
 int verify(stack *stk);
 void stackAssert(stack *stk);
-int decoderError(FILE * fp_error, int error);
+const char* decoderError(int error);
 
 #endif

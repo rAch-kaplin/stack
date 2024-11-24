@@ -9,33 +9,31 @@
 
 int main()
 {
-    loggerInit("stack.log", "stack_error.log");
+    loggerInit(LOGL_DEBUG, "stack.log");
 
     struct stack stk = {NULL, 0, 0};
 
-    stackElem elem_from_stack = 0; //TODO: StackElem
+    stackElem elem_from_stack = 0;
 
     stackCtor(&stk, 5);
-    logStack(&stk, LOG_INFO);
+    LOG(LOGL_DEBUG, "HI! I'm main\n");
 
     for (int i = 0; i < 11; i++)
     {
         stackPush(&stk, (i + 1) * 10);
-        logStack(&stk, LOG_INFO);
+        LOG(LOGL_DEBUG, "HI! I'm main\n");
     }
 
     while(stk.size > 0)
     {
         stackPop(&stk, &elem_from_stack);
         printf(COLOR_GREEN "elem_from_stack = " STACK_ELEM_FORMAT " \n\n" COLOR_RESET, elem_from_stack);
-        logStack(&stk, LOG_INFO);
+        LOG(LOGL_DEBUG, "HI! I'm main\n");
     }
     stackReallocToFree(&stk);
-    DBG(logStack(&stk, LOG_INFO));
+    LOG(LOGL_DEBUG, "HI! I'm main\n");
 
     stackDtor(&stk);
-    //logStack(&stk, LOG_INFO);
-
 
     loggerDeinit();
     return 0;

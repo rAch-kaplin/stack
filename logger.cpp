@@ -1,27 +1,79 @@
 #include "logger.h"
 #include "color.h"
 #include "debug.h"
+#include <stdbool.h>
+#include <time.h>
+#include <stdarg.h>
 
 // vargs
-void log(LogLevel levelMsg, const char* fmt, ...);
+//void log(LogLevel levelMsg, const char* fmt, ...);
+//bool shouldLog(LogLevel levelMsg);
 
-int loggerInit(const char *log_file_name, const char *error_log_file_name)
+Logger* GetLogger()
+{
+    static Logger logger = {LOGL_DEBUG, NULL};
+    return &logger;
+}
+
+int loggerInit(LogLevel levelLogger, const char *log_file_name)
 {
     Logger* log = GetLogger();
+    log->levelLogger = levelLogger;
     log->logFile = fopen(log_file_name, "w+");
+
     if (log->logFile == NULL)
     {
         fprintf(stderr, "logFile failed open\n");
         return -100;
     }
 
-    log->errorLogFile = fopen(error_log_file_name, "w+");
-    if (log->errorLogFile == NULL)
-    {
-        fprintf(stderr, "logFile failed open\n");
-        return -100;
-    }
     return 0;
+}
+
+bool shouldLog(LogLevel levelMsg)
+{
+    return GetLogger()->levelLogger <= levelMsg;
+}
+
+void log(LogLevel levelMsg, const char* file, int line, const char* fmt ...)
+{
+    time_t time_now = time(NULL);
+    struct tm *now = localtime(&time_now);
+    char time_info[30] = {};
+    strftime(time_info, sizeof(time_info), "%Y-%m-%d %H:%M:%S", now);
+
+    const char *levelStr;
+
+    switch(levelMsg)
+    {
+        case LOGL_DEBUG:
+            levelStr = "DEBUG";
+            break;
+        case LOGL_INFO:
+            levelStr = "INFO";
+            break;
+        case LOGL_ERROR:
+            levelStr = "ERROR";
+            break;
+        default:
+            break;
+    }
+
+    FILE *logFile = GetLogger()->logFile;
+    if (!logFile)
+    {
+        fprintf(stderr, "logFile is NULL\n");
+        return;
+    }
+    va_list args;
+    va_start(args, fmt);
+    fprintf(logFile, "[%s][%s][%s][%s:%d]:", time_info, levelStr, file , file, line);
+    vfprintf(logFile, fmt, args);
+    //dump(stk);
+    va_end(args);
+
+    //fprintf(logFile, "\n");
+    fflush(logFile);
 }
 
 
@@ -31,68 +83,26 @@ void loggerDeinit()
     fclose(log->logFile);
     log->logFile = NULL;
 
-    fclose(log->errorLogFile);
-    log->errorLogFile = NULL;
 }
 
-
-Logger* GetLogger()
+void dump(const stack *stk)
 {
-    static Logger logger = {NULL, NULL};
-    return &logger;
-}
+    stkNullCheck(stk);
 
-void logStack(const stack *stk, LogLevel level)
-{
-    Logger* log = GetLogger();
-    FILE *logFile = NULL;
+    FILE *logFile = GetLogger()->logFile;
 
-    if (!log)
-    {
-        fprintf(stderr, "Logger is NULL\n");
-        return;
-    }
-
-    switch(level)
-    {
-        case LOG_INFO:
-            logFile = log->logFile;
-            break;
-        case LOG_ERROR:
-            logFile = log->errorLogFile;
-            break;
-        default:
-            return;
-    }
-
-    if (!logFile)
-    {
-        fprintf(stderr, "logFile is NULL\n");
-        return;
-    }
-    dump(stk, logFile);
-    //decoderError(logFile, error);
-}
-
-errorCode dump(const stack *stk, FILE *logFile)
-{
-    if (stk == NULL)
-    {
-        fprintf(stderr, "stk is NULL\n");
-        return STK_STRUCT_NULL_POINTER;
-    }
 
     fprintf(logFile, "=========================================================================================\n"
-                     "STACK DUMP [INFO]:\n"
-                     "stack pointer = %p\n"
-                     "Capacity: %zd\n"
-                     "Size: %zd\n"
-                     "Data pointer: %p\n"
-                     "Data: ", stk, stk->capacity, stk->size, stk->data);
-    for (ssize_t i = 0; i < stk->capacity + 2; i++) {
+                     "\tSTACK DUMP:\n"
+                     "\tstack pointer = %p\n"
+                     "\tCapacity: %zd\n"
+                     "\tSize: %zd\n"
+                     "\tData pointer: %p\n"
+                     "\tData: ", stk, stk->capacity, stk->size, stk->data);
+    for (ssize_t i = 0; i < stk->capacity + 2; i++)
+    {
         fprintf(logFile, " " STACK_ELEM_FORMAT , stk->data[i]);
     }
     fprintf(logFile, "\n");
 
-    return STK_OK;
 }
