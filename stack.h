@@ -7,30 +7,30 @@ const stackElem POISON = 0xBAD1ABA;
 
 enum errorCode
 {
-    STK_OK = (0 << 0),
-    STK_OUT_MEMORY = (1 << 0),
-    STK_REALLOC_FAILED = (1 << 1),
-    STK_EMPTY_STACK = (1 << 2),
-    STK_SIZE_LARGER_CAPACITY = (1 << 3),
-    STK_CAPACITY_NOT_EXSIST = (1 << 4),
-    BAD_CAPACITY = (1 << 5),
-    BAD_SIZE = (1 << 6),
-    STK_STRUCT_NULL_POINTER = (1 << 7),
-    FILE_POINTER_IS_NULL = (1 << 8),
-    CANT_REALLOC_TO_FREE = (1 << 9),
-    BAD_CANARY_1 = (1 << 10),
-    BAD_CANARY_2 = (1 << 11)
+    STK_OK = 0,
+    STK_OUT_MEMORY =            (1 << 0),
+    STK_REALLOC_FAILED =        (1 << 1),
+    STK_EMPTY_STACK =           (1 << 2),
+    STK_SIZE_LARGER_CAPACITY =  (1 << 3),
+    STK_CAPACITY_NOT_EXSIST =   (1 << 4),
+    BAD_CAPACITY =              (1 << 5),
+    BAD_SIZE =                  (1 << 6),
+    STK_STRUCT_NULL_POINTER =   (1 << 7),
+    FILE_POINTER_IS_NULL =      (1 << 8),
+    CANT_REALLOC_TO_FREE =      (1 << 9),
+    BAD_CANARY_1 =              (1 << 10),
+    BAD_CANARY_2 =              (1 << 11)
 };
 
 struct stack
 {
     stackElem *data;
     ssize_t size;
-    ssize_t capacity;
+    size_t capacity;
 };
 
 
-errorCode stackCtor(stack *stk, ssize_t capacity);
+errorCode stackCtor(stack *stk, size_t capacity);
 errorCode stackPush(stack *stk, stackElem elem);
 errorCode stackDtor(stack *stk);
 errorCode stackPop(stack *stk, stackElem *elem_from_stack);

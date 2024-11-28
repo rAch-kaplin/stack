@@ -95,11 +95,11 @@ void dump(const stack *stk)
     fprintf(logFile, "=========================================================================================\n"
                      "\tSTACK DUMP:\n"
                      "\tstack pointer = %p\n"
-                     "\tCapacity: %zd\n"
+                     "\tCapacity: %zu\n"
                      "\tSize: %zd\n"
                      "\tData pointer: %p\n"
                      "\tData: ", stk, stk->capacity, stk->size, stk->data);
-    for (ssize_t i = 0; i < stk->capacity + 2; i++)
+    for (size_t i = 0; i < stk->capacity + 2; i++)
     {
         fprintf(logFile, " " STACK_ELEM_FORMAT , stk->data[i]);
     }
