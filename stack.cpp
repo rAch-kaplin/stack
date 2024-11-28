@@ -53,6 +53,7 @@ errorCode stackReallocUp(stack *stk)
     stk->capacity *= (ssize_t)capacity_multiplier;
 
     putCanary(stk);
+
     stackAssert(stk);
     return STK_OK;
 }

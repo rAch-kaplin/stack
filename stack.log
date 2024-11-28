@@ -1,24 +1,36 @@
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:19]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:24]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:24]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:24]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:24]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:24]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:24]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:24]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:24]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:24]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:24]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:24]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:31]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:31]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:31]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:31]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:31]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:31]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:31]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:31]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:31]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:31]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:31]:HI! I'm main
-[2024-11-28 11:40:26][DEBUG][main.cpp][main.cpp:34]:HI! I'm main
+[2024-11-28 21:38:26][DEBUG][main.cpp][19:main]:STACK DUMP:	stack pointer = 0x7ffdb5314840
+	Capacity: 5
+	Size: 0
+	Data pointer: 0x603000000040
+	Data:  -559039810 0 0 0 0 0 -559039810
+[2024-11-28 21:38:26][DEBUG][main.cpp][24:main]:STACK DUMP:	stack pointer = 0x7ffdb5314840
+	Capacity: 5
+	Size: 1
+	Data pointer: 0x603000000040
+	Data:  -559039810 10 0 0 0 0 -559039810
+[2024-11-28 21:38:26][DEBUG][main.cpp][24:main]:STACK DUMP:	stack pointer = 0x7ffdb5314840
+	Capacity: 5
+	Size: 2
+	Data pointer: 0x603000000040
+	Data:  -559039810 10 20 0 0 0 -559039810
+[2024-11-28 21:38:26][DEBUG][main.cpp][24:main]:STACK DUMP:	stack pointer = 0x7ffdb5314840
+	Capacity: 5
+	Size: 3
+	Data pointer: 0x603000000040
+	Data:  -559039810 10 20 30 0 0 -559039810
+[2024-11-28 21:38:26][DEBUG][main.cpp][24:main]:STACK DUMP:	stack pointer = 0x7ffdb5314840
+	Capacity: 5
+	Size: 4
+	Data pointer: 0x603000000040
+	Data:  -559039810 10 20 30 40 0 -559039810
+[2024-11-28 21:38:26][DEBUG][main.cpp][24:main]:STACK DUMP:	stack pointer = 0x7ffdb5314840
+	Capacity: 5
+	Size: 5
+	Data pointer: 0x603000000040
+	Data:  -559039810 10 20 30 40 50 -559039810
+[2024-11-28 21:38:26][ERROR][debug.cpp][59:stackAssert]:Stack verification failed: BAD_CANARY_1
+	stack pointer = 0x7ffdb5314840
+	Capacity: 10
+	Size: 5
+	Data pointer: 0x604000000010
+	Data:  0 10 20 30 40 50 -559039810 -1094795586 -1094795586 -1094795586 -1094795586 -559039810
