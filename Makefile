@@ -3,6 +3,7 @@ CFLAGS = -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive-loo
 SOURCES = main.cpp logger.cpp stack.cpp debug.cpp
 OBJECTS = $(SOURCES:%.cpp=%.o)
 
+
 all: do.exe
 
 do.exe: $(OBJECTS)

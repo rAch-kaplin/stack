@@ -16,7 +16,7 @@ int main()
     stackElem elem_from_stack = 0;
 
     stackCtor(&stk, 5);
-    LOG(LOGL_DEBUG, "STACK DUMP:\n", &stk);
+    LOG(LOGL_DEBUG, "STACK Ctor:\n", &stk);
 
     for (int i = 0; i < 11; i++)
     {
@@ -28,10 +28,10 @@ int main()
     {
         stackPop(&stk, &elem_from_stack);
         printf(COLOR_GREEN "elem_from_stack = " STACK_ELEM_FORMAT " \n\n" COLOR_RESET, elem_from_stack);
-        LOG(LOGL_DEBUG, "STACK DUMP:\n", &stk);
+        LOG(LOGL_DEBUG, "STACK POP: %d\n", &stk, elem_from_stack);
     }
     stackReallocToFree(&stk);
-    LOG(LOGL_DEBUG, "STACK DUMP:\n", &stk);
+    LOG(LOGL_DEBUG, "Clear Realloc:\n", &stk);
 
     stackDtor(&stk);
 

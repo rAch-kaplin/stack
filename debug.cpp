@@ -32,7 +32,6 @@ int verify(stack *stk)
     {
         if (stk->data[0] != CANARY)
             error = error | BAD_CANARY_1;
-
         if (stk->data[stk->capacity + 1] != CANARY)
             error = error | BAD_CANARY_2;
     }
