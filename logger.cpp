@@ -17,11 +17,11 @@ Logger* GetLogger()
 
 int loggerInit(LogLevel levelLogger, const char *log_file_name)
 {
-    Logger* log = GetLogger();
-    log->levelLogger = levelLogger;
-    log->logFile = fopen(log_file_name, "w+");
 
-    if (log->logFile == NULL)
+    GetLogger()->levelLogger = levelLogger;
+    GetLogger()->logFile = fopen(log_file_name, "w+");
+
+    if (GetLogger()->logFile == NULL)
     {
         fprintf(stderr, "logFile failed open\n");
         return -100;
@@ -35,45 +35,53 @@ bool shouldLog(LogLevel levelMsg)
     return GetLogger()->levelLogger <= levelMsg;
 }
 
-void log(LogLevel levelMsg, const char* file, int line, const char* fmt ...)
+
+const char* СolorLogMsg(const enum LogLevel levelMsg)
+{
+    switch(levelMsg)
+    {
+        case LOGL_DEBUG:
+            return "[DEBUG]";
+            break;
+
+        case LOGL_ERROR:
+            return "[ERROR]";
+            break;
+
+        case LOGL_INFO:
+            return "[INFO]";
+            break;
+
+        default:
+            return "UNKNOW";
+            break;
+    }
+    return "UNKNOW";
+}
+
+
+void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  const char *fmt, stack *stk, ...)
 {
     time_t time_now = time(NULL);
     struct tm *now = localtime(&time_now);
     char time_info[30] = {};
     strftime(time_info, sizeof(time_info), "%Y-%m-%d %H:%M:%S", now);
 
-    const char *levelStr;
 
-    switch(levelMsg)
-    {
-        case LOGL_DEBUG:
-            levelStr = "DEBUG";
-            break;
-        case LOGL_INFO:
-            levelStr = "INFO";
-            break;
-        case LOGL_ERROR:
-            levelStr = "ERROR";
-            break;
-        default:
-            break;
-    }
-
-    FILE *logFile = GetLogger()->logFile;
-    if (!logFile)
+    if (!GetLogger()->logFile)
     {
         fprintf(stderr, "logFile is NULL\n");
         return;
     }
     va_list args;
     va_start(args, fmt);
-    fprintf(logFile, "[%s][%s][%s][%s:%d]:", time_info, levelStr, file , file, line);
-    vfprintf(logFile, fmt, args);
-    //dump(stk);
+    fprintf(GetLogger()->logFile, "[%s]%s[%s][%zu:%s]:", time_info, СolorLogMsg(levelMsg), file , line, func);
+    vfprintf(GetLogger()->logFile, fmt, args);
+    dump(stk);
     va_end(args);
 
     //fprintf(logFile, "\n");
-    fflush(logFile);
+    fflush(GetLogger()->logFile);
 }
 
 
@@ -89,20 +97,17 @@ void dump(const stack *stk)
 {
     stkNullCheck(stk);
 
-    FILE *logFile = GetLogger()->logFile;
-
-
-    fprintf(logFile, "=========================================================================================\n"
-                     "\tSTACK DUMP:\n"
+    fprintf(GetLogger()->logFile,
                      "\tstack pointer = %p\n"
-                     "\tCapacity: %zd\n"
+                     "\tCapacity: %zu\n"
                      "\tSize: %zd\n"
                      "\tData pointer: %p\n"
                      "\tData: ", stk, stk->capacity, stk->size, stk->data);
-    for (ssize_t i = 0; i < stk->capacity + 2; i++)
+    for (size_t i = 0; i < stk->capacity + 2; i++)
     {
-        fprintf(logFile, " " STACK_ELEM_FORMAT , stk->data[i]);
+        fprintf(GetLogger()->logFile, " " STACK_ELEM_FORMAT , stk->data[i]);
     }
-    fprintf(logFile, "\n");
+
+    fprintf(GetLogger()->logFile, "\n");
 
 }

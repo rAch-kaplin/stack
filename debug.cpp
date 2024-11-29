@@ -3,7 +3,7 @@
 #include "logger.h"
 
 
-int canary(stack *stk)
+int putCanary(stack *stk)
 {
     stk->data[0] = CANARY;
     stk->data[stk->capacity + 1] = CANARY;
@@ -37,13 +37,13 @@ int verify(stack *stk)
             error = error | BAD_CANARY_2;
     }
 
-    if (stk->size > stk->capacity)
+    if ((size_t)stk->size > stk->capacity)
         error = error | STK_SIZE_LARGER_CAPACITY;
 
     if (stk->size < 0)
         error = error | BAD_SIZE;
 
-    if (stk->capacity <= 0)
+    if (stk->capacity == 0)
         error = error | STK_CAPACITY_NOT_EXSIST;
 
 
@@ -56,7 +56,7 @@ void stackAssert(stack *stk)
     int error = verify(stk);
     if (error)
     {
-        LOG(LOGL_ERROR, "Stack verification failed: %s\n", decoderError(error));
+        LOG(LOGL_ERROR, "Stack verification failed: %s\n", stk, decoderError(error));
         loggerDeinit();
         //decoderError(stderr, error);
         assert(0);
