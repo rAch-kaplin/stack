@@ -28,7 +28,7 @@ const stackElem CANARY = (stackElem)0xDEADBABE;
     #define DBG(...)
 #endif
 
-int putCanary(stack *stk);
+int canary(stack *stk);
 void stkNullCheck(const stack *stk);
 int verify(stack *stk);
 void stackAssert(stack *stk);

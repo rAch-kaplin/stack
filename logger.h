@@ -4,13 +4,13 @@
 #include <stdio.h>
 #include "stack.h"
 
-#define LOG(levelMsg, fmt, stk, ...)                                           \
-    do                                                                         \
-    {                                                                          \
-        if (shouldLog(levelMsg))                                               \
-        {                                                                      \
-            log(levelMsg, __FILE__, __LINE__, __func__, fmt, stk, __VA_ARGS__);\
-        }                                                                      \
+#define LOG(levelMsg, fmt, ...)                                  \
+    do                                                           \
+    {                                                            \
+        if (shouldLog(levelMsg))                                 \
+        {                                                        \
+            log(levelMsg, __FILE__, __LINE__, fmt, ##__VA_ARGS__); \
+        }                                                        \
     } while(0)
 
 enum LogLevel
@@ -31,9 +31,8 @@ bool shouldLog(LogLevel levelMsg);
 int loggerInit(LogLevel levelLogger, const char *log_file_name);
 void loggerDeinit();
 Logger* GetLogger();
-const char* СolorLogMsg(const enum LogLevel levelMsg);
 //void log(LogLevel levelMsg, const char* fmt, ...);
-void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  const char *fmt, stack *stk, ...);
+void log(LogLevel levelMsg, const char* file, int line, const char* fmt, ...);
 void dump(const stack *stk);
 
 

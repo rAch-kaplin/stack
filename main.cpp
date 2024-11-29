@@ -16,22 +16,22 @@ int main()
     stackElem elem_from_stack = 0;
 
     stackCtor(&stk, 5);
-    LOG(LOGL_DEBUG, "STACK DUMP:", &stk);
+    LOG(LOGL_DEBUG, "HI! I'm main\n");
 
     for (int i = 0; i < 11; i++)
     {
         stackPush(&stk, (i + 1) * 10);
-        LOG(LOGL_DEBUG, "STACK DUMP:", &stk);
+        LOG(LOGL_DEBUG, "HI! I'm main\n");
     }
 
     while(stk.size > 0)
     {
         stackPop(&stk, &elem_from_stack);
         printf(COLOR_GREEN "elem_from_stack = " STACK_ELEM_FORMAT " \n\n" COLOR_RESET, elem_from_stack);
-        LOG(LOGL_DEBUG, "STACK DUMP:", &stk);
+        LOG(LOGL_DEBUG, "HI! I'm main\n");
     }
     stackReallocToFree(&stk);
-    LOG(LOGL_DEBUG, "STACK DUMP:", &stk);
+    LOG(LOGL_DEBUG, "HI! I'm main\n");
 
     stackDtor(&stk);
 

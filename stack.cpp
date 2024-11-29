@@ -10,18 +10,18 @@
 static const size_t capacity_multiplier = 2;
 
 
-errorCode stackCtor(stack *stk, size_t capacity)
+errorCode stackCtor(stack *stk, ssize_t capacity)
 {
     stkNullCheck(stk);
     stk->capacity = capacity;
 
     if (stk->capacity <= 0)
     {
-        DBG_FPRINTF(stderr, COLOR_RED "ERROR: BAD CAPACITY = %zu\n" COLOR_RESET, stk->capacity);
+        DBG_FPRINTF(stderr, COLOR_RED "ERROR: BAD CAPACITY = %zd\n" COLOR_RESET, stk->capacity);
         assert(0);
     }
 
-    stk->data = (stackElem*)calloc(capacity + 2, sizeof(stackElem));
+    stk->data = (stackElem*)calloc((size_t)capacity + 2, sizeof(stackElem));
     if (stk->data == NULL)
     {
         fprintf(stderr, "memory allocation error\n");
@@ -32,9 +32,9 @@ errorCode stackCtor(stack *stk, size_t capacity)
     stk->size = 0;
     DBG_PRINTF(COLOR_MAGENTA "Start: stk->size = %zd\n" COLOR_RESET, stk->size);
 
-    putCanary(stk);
+    canary(stk);
 
-    DBG_PRINTF(COLOR_MAGENTA"Start: stk->capacity = %zu\n\n" COLOR_RESET, stk->capacity);
+    DBG_PRINTF(COLOR_MAGENTA"Start: stk->capacity = %zd\n\n" COLOR_RESET, stk->capacity);
     stackAssert(stk);
 
     return STK_OK;
@@ -43,7 +43,7 @@ errorCode stackCtor(stack *stk, size_t capacity)
 errorCode stackReallocUp(stack *stk)
 {
     stackAssert(stk);
-    stackElem *stk_tmptr = (stackElem*)realloc(stk->data, (stk->capacity * capacity_multiplier + 2) * sizeof(stackElem));
+    stackElem *stk_tmptr = (stackElem*)realloc(stk->data, ((size_t)stk->capacity * capacity_multiplier + 2) * sizeof(stackElem));
     if (stk_tmptr == NULL)
     {
         fprintf(stderr, "Realloc allocate failed\n");
@@ -52,8 +52,7 @@ errorCode stackReallocUp(stack *stk)
     stk->data = stk_tmptr;
     stk->capacity *= (ssize_t)capacity_multiplier;
 
-    putCanary(stk);
-
+    canary(stk);
     stackAssert(stk);
     return STK_OK;
 }
@@ -64,7 +63,7 @@ errorCode stackPush(stack *stk, stackElem elem)
     DBG_PRINTF(COLOR_CYAN "Push " STACK_ELEM_FORMAT " elem to stack\n" COLOR_RESET, elem);
     stackAssert(stk);
 
-    if ((size_t)stk->size >= stk->capacity)
+    if (stk->size >= stk->capacity)
         stackReallocUp(stk);
 
     stk->data[stk->size + 1] = elem;
@@ -78,7 +77,7 @@ errorCode stackPush(stack *stk, stackElem elem)
 errorCode stackReallocDown(stack *stk)
 {
     stackAssert(stk);
-    stackElem *stk_tmptr = (stackElem*)realloc(stk->data, (stk->capacity / capacity_multiplier + 2) * sizeof(stackElem));
+    stackElem *stk_tmptr = (stackElem*)realloc(stk->data, ((size_t)stk->capacity / capacity_multiplier + 2) * sizeof(stackElem));
     if (stk_tmptr == NULL)
     {
         fprintf(stderr, "Realloc allocate failed\n");
@@ -87,7 +86,7 @@ errorCode stackReallocDown(stack *stk)
     stk->data = stk_tmptr;
     stk->capacity /= (ssize_t)capacity_multiplier;
 
-    putCanary(stk);
+    canary(stk);
     //stk->data[0] = 1;
     stackAssert(stk);
     return STK_OK;
@@ -103,7 +102,7 @@ errorCode stackPop(stack *stk, stackElem *elem_from_stack)
     *elem_from_stack = stk->data[stk->size + 1];
     stk->data[stk->size + 1] = POISON;
 
-    if ((stk->size >= 5) && ((size_t)stk->size <= stk->capacity / 4))
+    if ((stk->size >= 5) && (stk->size <= stk->capacity / 4))
         stackReallocDown(stk);
 
     stackAssert(stk);
@@ -123,7 +122,7 @@ errorCode stackReallocToFree(stack *stk)
         stk->data = stk_tmptr;
         stk->capacity = 1;
 
-        putCanary(stk);
+        canary(stk);
         stackAssert(stk);
         return STK_OK;
     }
@@ -139,7 +138,7 @@ errorCode stackDtor(stack *stk)
     stk->size = 0;
 
     DBG_PRINTF(COLOR_MAGENTA"Finished: stk->data = %p\n" COLOR_RESET, stk->data);
-    DBG_PRINTF(COLOR_MAGENTA"Capacity: %zu\n" COLOR_RESET, stk->capacity);
+    DBG_PRINTF(COLOR_MAGENTA"Capacity: %zd\n" COLOR_RESET, stk->capacity);
     DBG_PRINTF(COLOR_MAGENTA"Size: %zd\n" COLOR_RESET, stk->size);
     DBG_PRINTF(COLOR_MAGENTA"Data pointer: %p\n" COLOR_RESET, stk->data);
 
