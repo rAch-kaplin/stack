@@ -31,8 +31,8 @@ int main()
         printf(COLOR_GREEN "elem_from_stack = " STACK_ELEM_FORMAT " \n\n" COLOR_RESET, elem_from_stack);
         LOG(LOGL_DEBUG, "STACK POP: %d\n", &stk, elem_from_stack);
     }
-    stackReallocToFree(&stk);
-    LOG(LOGL_DEBUG, "Clear Realloc:\n", &stk);
+    capacityOptimization(&stk);
+    LOG(LOGL_DEBUG, "Optimization capacity:\n", &stk);
 
     stackDtor(&stk);
 

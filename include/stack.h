@@ -36,7 +36,7 @@ errorCode stackDtor(stack *stk);
 errorCode stackPop(stack *stk, stackElem *elem_from_stack);
 errorCode stackReallocUp(stack *stk);
 errorCode stackReallocDown(stack *stk);
-errorCode stackReallocToFree(stack *stk);
+errorCode capacityOptimization(stack *stk);
 
 
 #endif

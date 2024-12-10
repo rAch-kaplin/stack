@@ -8,25 +8,37 @@
 
 
 static const size_t capacity_multiplier = 2;
+static const size_t min_capacity = 16;
 
 
 errorCode stackCtor(stack *stk, size_t capacity)
 {
     stkNullCheck(stk);
-    stk->capacity = capacity;
 
-    if (stk->capacity <= 0)
+    if (capacity <= min_capacity)
+    {
+        stk->capacity = min_capacity;
+    }
+    else
+    {
+        stk->capacity = capacity;
+    }
+
+    if (stk->capacity == 0)
     {
         DBG_FPRINTF(stderr, COLOR_RED "ERROR: BAD CAPACITY = %zu\n" COLOR_RESET, stk->capacity);
         assert(0);
     }
 
-    stk->data = (stackElem*)calloc(capacity + 2, sizeof(stackElem));
+    stk->data = (stackElem*)calloc(stk->capacity + 2, sizeof(stackElem));
     if (stk->data == NULL)
     {
         fprintf(stderr, "memory allocation error\n");
         return STK_OUT_MEMORY;
     }
+
+
+
     DBG_PRINTF(COLOR_MAGENTA"Start: stk->data = %p\n" COLOR_RESET, stk->data);
 
     stk->size = 0;
@@ -103,25 +115,25 @@ errorCode stackPop(stack *stk, stackElem *elem_from_stack)
     *elem_from_stack = stk->data[stk->size + 1];
     stk->data[stk->size + 1] = POISON;
 
-    if ((stk->size >= 5) && ((size_t)stk->size <= stk->capacity / 4)) //const 5
+    if ((stk->size >= (ssize_t)(min_capacity)) && ((size_t)stk->size <= stk->capacity / 4))
         stackReallocDown(stk);
 
     stackAssert(stk);
     return STK_OK;
 }
 
-errorCode stackReallocToFree(stack *stk)
+errorCode capacityOptimization(stack *stk)
 {
     if (stk->size == 0)
     {
-        stackElem *stk_tmptr = (stackElem*)realloc(stk->data, 3 * sizeof(stackElem));
+        stackElem *stk_tmptr = (stackElem*)realloc(stk->data, 18 * sizeof(stackElem));
         if (stk_tmptr == NULL)
         {
             fprintf(stderr, "Realloc allocate failed\n");
             return STK_REALLOC_FAILED;
         }
         stk->data = stk_tmptr;
-        stk->capacity = 1;
+        stk->capacity = min_capacity;
 
         putCanary(stk);
         stackAssert(stk);
