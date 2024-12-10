@@ -22,8 +22,9 @@ int main()
     {
         stackPush(&stk, (i + 1) * 10);
         LOG(LOGL_DEBUG, "STACK PUSH: %d\n", &stk, stk.data[i + 1]);
+        // stk.data[5] = 10000;
     }
-
+    // stk.size = 17;
     while(stk.size > 0)
     {
         stackPop(&stk, &elem_from_stack);

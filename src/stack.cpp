@@ -50,7 +50,7 @@ errorCode stackReallocUp(stack *stk)
         return STK_REALLOC_FAILED;
     }
     stk->data = stk_tmptr;
-    stk->capacity *= (ssize_t)capacity_multiplier;
+    stk->capacity *= capacity_multiplier;
 
     putCanary(stk);
 
@@ -85,7 +85,7 @@ errorCode stackReallocDown(stack *stk)
         return STK_REALLOC_FAILED;
     }
     stk->data = stk_tmptr;
-    stk->capacity /= (ssize_t)capacity_multiplier;
+    stk->capacity /= capacity_multiplier;
 
     putCanary(stk);
     //stk->data[0] = 1;
@@ -103,7 +103,7 @@ errorCode stackPop(stack *stk, stackElem *elem_from_stack)
     *elem_from_stack = stk->data[stk->size + 1];
     stk->data[stk->size + 1] = POISON;
 
-    if ((stk->size >= 5) && ((size_t)stk->size <= stk->capacity / 4))
+    if ((stk->size >= 5) && ((size_t)stk->size <= stk->capacity / 4)) //const 5
         stackReallocDown(stk);
 
     stackAssert(stk);

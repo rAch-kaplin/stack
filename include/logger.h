@@ -20,11 +20,12 @@ enum LogLevel
     LOGL_ERROR = 2
 };
 
-
-typedef struct {
+// typedef struct Logger Logger;
+//
+typedef struct Logger {
     LogLevel levelLogger;
     FILE *logFile;
-} Logger;
+}Logger;
 
 
 bool shouldLog(LogLevel levelMsg);

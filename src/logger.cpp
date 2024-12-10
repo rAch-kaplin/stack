@@ -17,7 +17,6 @@ Logger* GetLogger()
 
 int loggerInit(LogLevel levelLogger, const char *log_file_name)
 {
-
     GetLogger()->levelLogger = levelLogger;
     GetLogger()->logFile = fopen(log_file_name, "w+");
 
@@ -36,26 +35,26 @@ bool shouldLog(LogLevel levelMsg)
 }
 
 
-const char* СolorLogMsg(const enum LogLevel levelMsg)
+const char* ColorLogMsg(const enum LogLevel levelMsg)
 {
-    switch(levelMsg)
+    switch (levelMsg)
     {
         case LOGL_DEBUG:
             return "[DEBUG]";
-            break;
-
-        case LOGL_ERROR:
-            return "[ERROR]";
             break;
 
         case LOGL_INFO:
             return "[INFO]";
             break;
 
+        case LOGL_ERROR:
+            return "[ERROR]";
+            break;
+
         default:
-            return "UNKNOW";
             break;
     }
+
     return "UNKNOW";
 }
 
@@ -67,7 +66,6 @@ void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  co
     char time_info[30] = {};
     strftime(time_info, sizeof(time_info), "%Y-%m-%d %H:%M:%S", now);
 
-
     if (!GetLogger()->logFile)
     {
         fprintf(stderr, "logFile is NULL\n");
@@ -75,7 +73,7 @@ void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  co
     }
     va_list args;
     va_start(args, fmt);
-    fprintf(GetLogger()->logFile, "[%s]%s[%s][%zu:%s]:", time_info, СolorLogMsg(levelMsg), file , line, func);
+    fprintf(GetLogger()->logFile, "[%s]%s[%s][%zu:%s]:", time_info, ColorLogMsg(levelMsg), file , line, func);
     vfprintf(GetLogger()->logFile, fmt, args);
     dump(stk);
     va_end(args);
