@@ -1,6 +1,8 @@
 #ifndef _HSTACK
 #define _HSTACK
 
+#include <stdint.h>
+
 typedef int stackElem;
 const stackElem POISON = 0xBAD1ABA;
 #define STACK_ELEM_FORMAT "%d"
@@ -19,15 +21,17 @@ enum errorCode
     FILE_POINTER_IS_NULL =      (1 << 8),
     CANT_REALLOC_TO_FREE =      (1 << 9),
     BAD_CANARY_1 =              (1 << 10),
-    BAD_CANARY_2 =              (1 << 11)
+    BAD_CANARY_2 =              (1 << 11),
+    BAD_HASH_BUF =              (1 << 12)
 };
 
-struct stack
+typedef struct stack
 {
     stackElem *data;
     ssize_t size;
     size_t capacity;
-};
+    uint64_t hash_buffer;
+} stack;
 
 
 errorCode stackCtor(stack *stk, size_t capacity);

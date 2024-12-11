@@ -27,15 +27,13 @@ typedef struct Logger {
     FILE *logFile;
 }Logger;
 
-
 bool shouldLog(LogLevel levelMsg);
 int loggerInit(LogLevel levelLogger, const char *log_file_name);
 void loggerDeinit();
 Logger* GetLogger();
-const char* СolorLogMsg(const enum LogLevel levelMsg);
+const char* ColorLogMsg(const enum LogLevel levelMsg);
 //void log(LogLevel levelMsg, const char* fmt, ...);
 void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  const char *fmt, stack *stk, ...);
 void dump(const stack *stk);
-
 
 #endif

@@ -1,9 +1,9 @@
-#include "logger.h"
-#include "color.h"
-#include "debug.h"
 #include <stdbool.h>
 #include <time.h>
 #include <stdarg.h>
+#include "logger.h"
+#include "color.h"
+#include "debug.h"
 
 // vargs
 //void log(LogLevel levelMsg, const char* fmt, ...);

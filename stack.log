@@ -1,143 +1,143 @@
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][19:main]:STACK Ctor:
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][20:main]:STACK Ctor:
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 0
 	Data pointer: 0x607000000100
 	Data:  -559039810 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][24:main]:STACK PUSH: 10
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][25:main]:STACK PUSH: 10
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 1
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][24:main]:STACK PUSH: 20
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][25:main]:STACK PUSH: 20
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 2
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][24:main]:STACK PUSH: 30
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][25:main]:STACK PUSH: 30
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 3
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 0 0 0 0 0 0 0 0 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][24:main]:STACK PUSH: 40
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][25:main]:STACK PUSH: 40
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 4
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 0 0 0 0 0 0 0 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][24:main]:STACK PUSH: 50
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][25:main]:STACK PUSH: 50
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 5
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 50 0 0 0 0 0 0 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][24:main]:STACK PUSH: 60
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][25:main]:STACK PUSH: 60
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 6
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 50 60 0 0 0 0 0 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][24:main]:STACK PUSH: 70
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][25:main]:STACK PUSH: 70
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 7
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 50 60 70 0 0 0 0 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][24:main]:STACK PUSH: 80
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][25:main]:STACK PUSH: 80
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 8
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 50 60 70 80 0 0 0 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][24:main]:STACK PUSH: 90
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][25:main]:STACK PUSH: 90
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 9
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 50 60 70 80 90 0 0 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][24:main]:STACK PUSH: 100
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][25:main]:STACK PUSH: 100
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 10
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 50 60 70 80 90 100 0 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][24:main]:STACK PUSH: 110
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][25:main]:STACK PUSH: 110
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 11
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 50 60 70 80 90 100 110 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][32:main]:STACK POP: 110
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][33:main]:STACK POP: 110
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 10
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 50 60 70 80 90 100 195893946 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][32:main]:STACK POP: 100
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][33:main]:STACK POP: 100
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 9
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 50 60 70 80 90 195893946 195893946 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][32:main]:STACK POP: 90
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][33:main]:STACK POP: 90
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 8
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 50 60 70 80 195893946 195893946 195893946 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][32:main]:STACK POP: 80
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][33:main]:STACK POP: 80
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 7
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 50 60 70 195893946 195893946 195893946 195893946 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][32:main]:STACK POP: 70
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][33:main]:STACK POP: 70
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 6
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 50 60 195893946 195893946 195893946 195893946 195893946 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][32:main]:STACK POP: 60
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][33:main]:STACK POP: 60
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 5
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 50 195893946 195893946 195893946 195893946 195893946 195893946 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][32:main]:STACK POP: 50
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][33:main]:STACK POP: 50
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 4
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 40 195893946 195893946 195893946 195893946 195893946 195893946 195893946 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][32:main]:STACK POP: 40
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][33:main]:STACK POP: 40
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 3
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 30 195893946 195893946 195893946 195893946 195893946 195893946 195893946 195893946 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][32:main]:STACK POP: 30
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][33:main]:STACK POP: 30
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 2
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 20 195893946 195893946 195893946 195893946 195893946 195893946 195893946 195893946 195893946 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][32:main]:STACK POP: 20
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][33:main]:STACK POP: 20
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 1
 	Data pointer: 0x607000000100
 	Data:  -559039810 10 195893946 195893946 195893946 195893946 195893946 195893946 195893946 195893946 195893946 195893946 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][32:main]:STACK POP: 10
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][33:main]:STACK POP: 10
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 0
 	Data pointer: 0x607000000100
 	Data:  -559039810 195893946 195893946 195893946 195893946 195893946 195893946 195893946 195893946 195893946 195893946 195893946 0 0 0 0 0 -559039810
-[2024-12-10 17:35:08][DEBUG][src/main.cpp][35:main]:Optimization capacity:
-	stack pointer = 0x7ffe215c7590
+[2024-12-12 01:24:53][DEBUG][src/main.cpp][36:main]:Optimization capacity:
+	stack pointer = 0x7fffa9080a30
 	Capacity: 16
 	Size: 0
 	Data pointer: 0x607000000170

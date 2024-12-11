@@ -1,15 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <stdint.h>
 #include "stack.h"
 #include "logger.h"
 #include "color.h"
 #include "debug.h"
 
-
 static const size_t capacity_multiplier = 2;
 static const size_t min_capacity = 16;
-
 
 errorCode stackCtor(stack *stk, size_t capacity)
 {
@@ -37,17 +36,17 @@ errorCode stackCtor(stack *stk, size_t capacity)
         return STK_OUT_MEMORY;
     }
 
+    stk->size = 0;
 
+    putCanary(stk);
+    putHash(stk);
+    stackAssert(stk);
 
     DBG_PRINTF(COLOR_MAGENTA"Start: stk->data = %p\n" COLOR_RESET, stk->data);
 
-    stk->size = 0;
     DBG_PRINTF(COLOR_MAGENTA "Start: stk->size = %zd\n" COLOR_RESET, stk->size);
 
-    putCanary(stk);
-
     DBG_PRINTF(COLOR_MAGENTA"Start: stk->capacity = %zu\n\n" COLOR_RESET, stk->capacity);
-    stackAssert(stk);
 
     return STK_OK;
 }
@@ -65,11 +64,11 @@ errorCode stackReallocUp(stack *stk)
     stk->capacity *= capacity_multiplier;
 
     putCanary(stk);
+    putHash(stk);
 
     stackAssert(stk);
     return STK_OK;
 }
-
 
 errorCode stackPush(stack *stk, stackElem elem)
 {
@@ -83,6 +82,7 @@ errorCode stackPush(stack *stk, stackElem elem)
     DBG_PRINTF(COLOR_YELLOW "Stack after push stk->data[%zd] = " STACK_ELEM_FORMAT "\n" COLOR_RESET, stk->size, elem);
     stk->size++;
 
+    putHash(stk);
     stackAssert(stk);
     return STK_OK;
 }
@@ -100,6 +100,7 @@ errorCode stackReallocDown(stack *stk)
     stk->capacity /= capacity_multiplier;
 
     putCanary(stk);
+    putHash(stk);
     //stk->data[0] = 1;
     stackAssert(stk);
     return STK_OK;
@@ -118,6 +119,7 @@ errorCode stackPop(stack *stk, stackElem *elem_from_stack)
     if ((stk->size >= (ssize_t)(min_capacity)) && ((size_t)stk->size <= stk->capacity / 4))
         stackReallocDown(stk);
 
+    putHash(stk);
     stackAssert(stk);
     return STK_OK;
 }
@@ -136,6 +138,7 @@ errorCode capacityOptimization(stack *stk)
         stk->capacity = min_capacity;
 
         putCanary(stk);
+        putHash(stk);
         stackAssert(stk);
         return STK_OK;
     }

@@ -1,14 +1,33 @@
- #include "debug.h"
+#include "debug.h"
 #include "color.h"
 #include "logger.h"
 
-
 int putCanary(stack *stk)
 {
+    stkNullCheck(stk);
     stk->data[0] = CANARY;
     stk->data[stk->capacity + 1] = CANARY;
 
     return 0;
+}
+
+int putHash(stack *stk)
+{
+    stkNullCheck(stk);
+    stk->hash_buffer = Hash(stk->data, (stk->capacity + 2) * sizeof(stackElem));
+    DBG_FPRINTF(stderr, "Updated Hashes: hash_buffer = %lu\n", stk->hash_buffer);
+    return 0;
+}
+
+uint64_t Hash(const void *ptr, size_t size)
+{
+    uint64_t hash = 5381;
+    const char *data = (const char*)ptr;
+    for(size_t i = 0; i < size; ++i)
+    {
+        hash = hash * 33 ^ data[i];
+    }
+    return hash;
 }
 
 void stkNullCheck(const stack *stk)
@@ -19,7 +38,6 @@ void stkNullCheck(const stack *stk)
         assert(0);
     }
 }
-
 
 int verify(stack *stk)
 {
@@ -45,6 +63,8 @@ int verify(stack *stk)
     if (stk->capacity == 0)
         error = error | STK_CAPACITY_NOT_EXSIST;
 
+    if (stk->hash_buffer != Hash(stk->data, (stk->capacity + 2) * sizeof(stackElem)))
+        error |= BAD_HASH_BUF;
 
     return error;
 }
@@ -66,44 +86,42 @@ const char* decoderError(int error)
 {
     if (error & STK_STRUCT_NULL_POINTER)
     {
-        //DBG_FPRINTF(fp_error, COLOR_RED"STK_STRUCT_NULL_POINTER\n" COLOR_RESET);
         return "STK_STRUCT_NULL_POINTER";
     }
 
     if (error & STK_OUT_MEMORY)
     {
-        //DBG_FPRINTF(fp_error, COLOR_RED"STK_OUT_MEMORY\n" COLOR_RESET);
         return "STK_OUT_MEMORY";
     }
 
     if (error & STK_SIZE_LARGER_CAPACITY)
     {
-        //DBG_FPRINTF(fp_error, COLOR_RED"STK_SIZE_LARGER_CAPACITY\n" COLOR_RESET);
         return "STK_SIZE_LARGER_CAPACITY";
     }
 
     if (error & BAD_SIZE)
     {
-        //DBG_FPRINTF(fp_error,COLOR_RED "BAD_SIZE\n" COLOR_RESET);
         return "BAD_SIZE";
     }
 
     if (error & STK_CAPACITY_NOT_EXSIST)
     {
-        //DBG_FPRINTF(fp_error, COLOR_RED"STK_CAPACITY_NOT_EXSIST\n" COLOR_RESET);
         return "STK_CAPACITY_NOT_EXSIST";
     }
 
     if (error & BAD_CANARY_1)
     {
-        //DBG_FPRINTF(fp_error, COLOR_RED"BAD_CANARY_1\n" COLOR_RESET);
         return "BAD_CANARY_1";
     }
 
     if (error & BAD_CANARY_2)
     {
-        //DBG_FPRINTF(fp_error,COLOR_RED "BAD_CANARY_2\n" COLOR_RESET);
         return "BAD_CANARY_2";
+    }
+
+    if (error & BAD_HASH_BUF)
+    {
+        return "BAD_HASH_BUF";
     }
 
     return "Unknow Error :(";
