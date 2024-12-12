@@ -1,17 +1,14 @@
 #include <stdbool.h>
 #include <time.h>
 #include <stdarg.h>
+#include <string.h>
 #include "logger.h"
 #include "color.h"
 #include "debug.h"
 
-// vargs
-//void log(LogLevel levelMsg, const char* fmt, ...);
-//bool shouldLog(LogLevel levelMsg);
-
 Logger* GetLogger()
 {
-    static Logger logger = {LOGL_DEBUG, NULL};
+    static Logger logger = {LOGL_DEBUG, NULL, 0};
     return &logger;
 }
 
@@ -54,12 +51,11 @@ const char* ColorLogMsg(const enum LogLevel levelMsg)
         default:
             break;
     }
-
     return "UNKNOW";
 }
 
 
-void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  const char *fmt, stack *stk, ...)
+void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  const char *fmt, ...)
 {
     time_t time_now = time(NULL);
     struct tm *now = localtime(&time_now);
@@ -71,41 +67,37 @@ void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  co
         fprintf(stderr, "logFile is NULL\n");
         return;
     }
+
     va_list args;
     va_start(args, fmt);
-    fprintf(GetLogger()->logFile, "[%s]%s[%s][%zu:%s]:", time_info, ColorLogMsg(levelMsg), file , line, func);
+    fprintf(GetLogger()->logFile, "[%s]%s[%s][%zu:%s]: ", time_info, ColorLogMsg(levelMsg), file , line, func);
     vfprintf(GetLogger()->logFile, fmt, args);
-    dump(stk);
     va_end(args);
-
-    //fprintf(logFile, "\n");
-    fflush(GetLogger()->logFile);
 }
-
 
 void loggerDeinit()
 {
     Logger* log = GetLogger();
     fclose(log->logFile);
     log->logFile = NULL;
-
 }
 
-void dump(const stack *stk)
+void getStackState(stack* stk)
 {
     stkNullCheck(stk);
 
-    fprintf(GetLogger()->logFile,
-                     "\tstack pointer = %p\n"
-                     "\tCapacity: %zu\n"
-                     "\tSize: %zd\n"
-                     "\tData pointer: %p\n"
-                     "\tData: ", stk, stk->capacity, stk->size, stk->data);
+    int current_len = sprintf(GetLogger()->stack_state,
+                 "\tstack pointer = %p\n"
+                 "\tCapacity: %zu\n"
+                 "\tSize: %zd\n"
+                 "\tData pointer: %p\n"
+                 "\tData: ",
+                 stk, stk->capacity, stk->size, stk->data);
+
     for (size_t i = 0; i < stk->capacity + 2; i++)
     {
-        fprintf(GetLogger()->logFile, " " STACK_ELEM_FORMAT , stk->data[i]);
+        current_len += sprintf(GetLogger()->stack_state + current_len, "\t" STACK_ELEM_FORMAT, stk->data[i]);
     }
-
-    fprintf(GetLogger()->logFile, "\n");
-
 }
+
+

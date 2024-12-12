@@ -41,6 +41,7 @@ errorCode stackCtor(stack *stk, size_t capacity)
     putCanary(stk);
     putHash(stk);
     stackAssert(stk);
+    LOG(LOGL_DEBUG, "STACK Ctor:");
 
     DBG_PRINTF(COLOR_MAGENTA"Start: stk->data = %p\n" COLOR_RESET, stk->data);
 
@@ -84,6 +85,7 @@ errorCode stackPush(stack *stk, stackElem elem)
 
     putHash(stk);
     stackAssert(stk);
+    LOG(LOGL_DEBUG, "STACK PUSH: %d", elem);
     return STK_OK;
 }
 
@@ -121,6 +123,7 @@ errorCode stackPop(stack *stk, stackElem *elem_from_stack)
 
     putHash(stk);
     stackAssert(stk);
+    LOG(LOGL_DEBUG, "STACK POP: %d", elem_from_stack);
     return STK_OK;
 }
 
@@ -140,6 +143,7 @@ errorCode capacityOptimization(stack *stk)
         putCanary(stk);
         putHash(stk);
         stackAssert(stk);
+        LOG(LOGL_DEBUG, "Optimization capacity:");
         return STK_OK;
     }
     return CANT_REALLOC_TO_FREE;
