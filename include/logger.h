@@ -7,6 +7,29 @@
 #include <stdlib.h>
 #include "stack.h"
 
+enum LogLevel
+{
+    LOGL_DEBUG = 0,
+    LOGL_INFO  = 1,
+    LOGL_ERROR = 2
+};
+
+
+typedef struct Logger {
+    LogLevel levelLogger;
+    FILE *logFile;
+    char stack_state[4096];
+}Logger;
+
+// typedef struct Logger Logger;
+Logger* GetLogger();
+bool shouldLog(LogLevel levelMsg);
+int loggerInit(LogLevel levelLogger, const char *log_file_name);
+void getStackState(stack* stk);
+void loggerDeinit();
+const char* ColorLogMsg(const enum LogLevel levelMsg);
+void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  const char *fmt, ...);
+
 #define LOG(levelMsg, fmt, ...)                   \
     do {                                          \
         LOG_BEGIN(levelMsg, fmt, ##__VA_ARGS__);  \
@@ -34,29 +57,5 @@
         memset(GetLogger()->stack_state, 0, sizeof(GetLogger()->stack_state));  \
         fflush(GetLogger()->logFile);                                           \
     } while(0)
-
-enum LogLevel
-{
-    LOGL_DEBUG = 0,
-    LOGL_INFO  = 1,
-    LOGL_ERROR = 2
-};
-
-// typedef struct Logger Logger;
-//
-typedef struct Logger {
-    LogLevel levelLogger;
-    FILE *logFile;
-    char stack_state[4096];
-}Logger;
-
-bool shouldLog(LogLevel levelMsg);
-int loggerInit(LogLevel levelLogger, const char *log_file_name);
-void getStackState(stack* stk);
-void loggerDeinit();
-Logger* GetLogger();
-const char* ColorLogMsg(const enum LogLevel levelMsg);
-void log(LogLevel levelMsg, const char *file, size_t line, const char *func,  const char *fmt, ...);
-void dump(const stack *stk);
 
 #endif

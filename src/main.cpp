@@ -24,12 +24,13 @@ int main()
     while(stk.size > 0)
     {
         stackPop(&stk, &elem_from_stack);
-        printf(COLOR_GREEN "elem_from_stack = " STACK_ELEM_FORMAT " \n\n" COLOR_RESET, elem_from_stack);
+        DBG_PRINTF(COLOR_GREEN "elem_from_stack = " STACK_ELEM_FORMAT " \n\n" COLOR_RESET, elem_from_stack);
     }
     capacityOptimization(&stk);
 
     stackDtor(&stk);
     loggerDeinit();
-    
+
+    printf("End of main!\n");
     return 0;
 }
