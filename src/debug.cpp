@@ -25,7 +25,7 @@ uint64_t Hash(const void *ptr, size_t size)
     const char *data = (const char*)ptr;
     for(size_t i = 0; i < size; ++i)
     {
-        hash = hash * 33 ^ data[i];
+        hash = hash * 33 ^ (uint64_t)data[i];
     }
     return hash;
 }
