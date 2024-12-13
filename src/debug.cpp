@@ -75,7 +75,7 @@ void stackAssert(stack *stk)
     int error = verify(stk);
     if (error)
     {
-        LOG(LOGL_ERROR, "Stack verification failed: %s\n", stk, decoderError(error));
+        LOG(LOGL_ERROR, "Stack verification failed: %s", stk, decoderError(error));
         loggerDeinit();
         assert(0);
     }
