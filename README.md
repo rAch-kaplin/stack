@@ -13,7 +13,8 @@ The program has two types of protection: canaries protection and a hash protecti
 Clone the repository:
 ``` git clone git@github.com:rAch-kaplin/stack.git ```
 
-Run ``` make ``` to build the program.
+Run ``` make ``` to build the program. Type ``` ./do ``` to run the program.
+
 Run ``` make clean ``` to remove obj and dependencies files (clean build folder).
 
 ## The logger
